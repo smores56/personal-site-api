@@ -41,7 +41,7 @@ $ mohr-codes-api --port=1234 --review-dir=reviews/ --recipe-dir=recipes/
 [sqlite]: https://sqlite.org/index.html
 [megasync]: https://mega.nz/sync
 [graphql]: https://graphql.org/
-[api graphiql]: https://api.mohr.codes
+[api graphiql]: https://api.mohr.codes/graphiql
 [personal site]: https://sam.mohr.codes
 [api]: https://api.mohr.codes
-[install rust]: https://rust-lang.org/install
+[install rust]: https://www.rust-lang.org/tools/install
