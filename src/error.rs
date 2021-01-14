@@ -4,8 +4,6 @@ use std::path::PathBuf;
 pub enum Error {
     #[error("Error occurred while reading a file: {0}")]
     FileReadError(std::io::Error),
-    #[error("Unable to start watching directory: {0}")]
-    NotifyError(notify::Error),
     #[error("Failed to read YAML document in file {path}: {error}")]
     YamlError {
         path: PathBuf,

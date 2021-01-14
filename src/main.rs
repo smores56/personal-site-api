@@ -1,33 +1,22 @@
 use std::{path::PathBuf, sync::Arc};
 
 use clap::Clap;
-use recipe::Recipe;
-use review::Reviews;
 use schema::context::Context;
 use warp::Filter;
-use watcher::CollectionWatcher;
 
 pub mod error;
 pub mod recipe;
 pub mod review;
 pub mod schema;
-pub mod watcher;
 
 #[tokio::main]
 async fn main() -> Result<(), error::Error> {
     env_logger::init();
     let args = Args::parse();
 
-    let recipe_watcher = Arc::new(CollectionWatcher::<Recipe>::new(args.recipe_dir));
-    let review_watcher = Arc::new(CollectionWatcher::<Reviews>::new(args.review_dir));
-
-    recipe_watcher.clone().watch()?;
-    review_watcher.clone().watch()?;
-
-    let context = warp::any().map(move || Context {
-        recipes: recipe_watcher.clone(),
-        reviews: review_watcher.clone(),
-    });
+    let review_dir = Arc::new(args.review_dir);
+    let recipe_dir = Arc::new(args.recipe_dir);
+    let context = warp::any().map(move || Context::new(&recipe_dir, &review_dir));
 
     log::info!("Listening on 127.0.0.1:{}", args.port);
 
@@ -40,10 +29,19 @@ async fn main() -> Result<(), error::Error> {
             schema::schema(),
             context.boxed(),
         ));
+    let cors = warp::cors()
+        .allow_any_origin()
+        .allow_methods(vec!["GET", "POST", "OPTIONS"])
+        .allow_headers(vec!["content-type", "accept"]);
 
-    warp::serve(graphql.or(graphiql).with(warp::log("warp_server")))
-        .run(([127, 0, 0, 1], args.port))
-        .await;
+    warp::serve(
+        graphql
+            .or(graphiql)
+            .with(cors)
+            .with(warp::log("warp_server")),
+    )
+    .run(([127, 0, 0, 1], args.port))
+    .await;
 
     Ok(())
 }
