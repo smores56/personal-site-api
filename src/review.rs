@@ -12,8 +12,8 @@ pub struct Review {
     pub rating: Option<f64>,
     /// Additional thoughts on the film
     pub review: Option<String>,
-    /// When the review was written (formatted YYYY-MM-DD)
-    pub reviewed: Option<String>,
+    /// A link to the movie page (ex. IMDb, Wikipedia, etc.)
+    pub link: Option<String>,
 }
 
 #[derive(Deserialize)]
