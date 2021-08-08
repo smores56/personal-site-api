@@ -1,8 +1,8 @@
-# Mohr Codes API
+# Personal Site API
 
 The GraphQL API backend for my personal site,
-[sam.mohr.codes][personal site]. You can find the API hosted
-at [api.mohr.codes][api].
+[sam-mohr.com][personal site]. You can find the API hosted
+at [api.sam-mohr.com][api].
 
 
 ## How it Works
@@ -27,21 +27,21 @@ You'll need [Rust installed][install rust] to run this API yourself.
 To install it to your system, simply run the following:
 
 ```console
-$ cargo install --git https://github.com/smores56/mohr-codes-api
+$ cargo install --git https://github.com/smores56/personal-site-api
 ```
 
 You can then run the API by providing a port to listen on and
 (optionally nested) folders of reviews and recipes like so:
 
 ```console
-$ mohr-codes-api --port=1234 --review-dir=reviews/ --recipe-dir=recipes/
+$ personal-site-api --port=1234 --review-dir=reviews/ --recipe-dir=recipes/
 ```
 
 
 [sqlite]: https://sqlite.org/index.html
 [megasync]: https://mega.nz/sync
 [graphql]: https://graphql.org/
-[api graphiql]: https://api.mohr.codes/graphiql
-[personal site]: https://sam.mohr.codes
-[api]: https://api.mohr.codes
+[api graphiql]: https://api.sam-mohr.com/graphiql
+[personal site]: https://sam-mohr.com
+[api]: https://api.sam-mohr.com
 [install rust]: https://www.rust-lang.org/tools/install
